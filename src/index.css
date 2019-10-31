@@ -3,9 +3,17 @@ body {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: gray;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+canvas {
+  box-shadow: -5px -5px 0 black, 5px -5px 0 black, -5px 5px 0 black,
+    5px 5px 0 black;
+    margin: 10px;    
+}
+

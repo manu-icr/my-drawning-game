@@ -3,8 +3,23 @@
 .App {
   text-align: center;
 }
+.content {
+  display: inline-block;
+}
+.middle {
+  position: relative;
+}
 
-canvas {
-  box-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black,
-    1px 1px 0 black;
+.header, .footer {
+  position: relative;
+}
+canvas, .textBlock {
+  
+  position: relative;
+}
+
+
+.footerBox, .middleBox {
+  float:left;
+  margin: 10px;
 }

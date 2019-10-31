@@ -8,6 +8,7 @@
     "nes.css": "^2.2.1",
     "react": "^16.8.0-alpha.0",
     "react-dom": "^16.8.0-alpha.0",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "^3.0.1",
     "typed.js": "^2.0.11"
   },
