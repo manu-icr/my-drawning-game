@@ -10,6 +10,8 @@ function Controls({ theCanvas, model, labels }) {
 
   return (
     <div>
+      <h1>Test Title</h1>
+      <p>Test paragraph</p>
       <button
         onClick={() => {
           const canvas = theCanvas.current;
