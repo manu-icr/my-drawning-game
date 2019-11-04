@@ -32,15 +32,14 @@ const Timer = React.forwardRef((props, ref) => {
       setIsActive(false);
       setCount(props.max);
     },
-    stop:() => {
+    stop: () => {
       setIsActive(false);
     },
-    toggle:() => 
-    {
+    toggle: () => {
       setIsActive(!isActive);
     }
   }));
-  
+
   useEffect(() => {
     var intervalID = null;
     if (isActive) {
@@ -54,10 +53,14 @@ const Timer = React.forwardRef((props, ref) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isActive, count]);
 
-  return (
-    <div>{text.timer.replace('[seconds]', count.toString().padStart(props.max.length, '0'))}</div>
-  );
-
-
+  if (isActive)
+  {
+    return (<div>{ text.timer.replace('[seconds]', count.toString().padStart(props.max.length, '0')) }</div>);
+  }
+  else
+  {
+    return (<div></div>);
+  }
+  
 });
 export default Timer;

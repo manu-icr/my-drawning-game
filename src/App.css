@@ -8,6 +8,16 @@
 }
 .middle {
   position: relative;
+  height: 350px;
+}
+.middleBox{
+  height: 100%;
+}
+.btnStart{
+  position: absolute;
+  bottom: 0;
+  margin: 20px;
+  width: 300px;
 }
 
 .header, .footer {

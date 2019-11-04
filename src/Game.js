@@ -14,7 +14,11 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef();
-    this.state = { round: 1, time: TIMERSTART };
+    this.state = {
+      round: 1,
+      time: TIMERSTART,
+      question: null
+    };
     this.timerRef = React.createRef();
 
   }
@@ -29,6 +33,9 @@ class Game extends React.Component {
   startGame = () => {
     //console.log(this);
     this.timerRef.current.start();
+    this.setState({
+      question: 'asdf'
+    })
   };
 
   resetTimer = () => {
@@ -40,7 +47,7 @@ class Game extends React.Component {
     return (
       <div className="content">
         <div className="header">
-          <TextBlock strings={['HEADER GAME']} />
+          <h1>Round #{this.state.round.toString().padStart(2, '0')}</h1>
         </div>
         <div className="middle">
           <div className="middleBox">
@@ -48,15 +55,25 @@ class Game extends React.Component {
           </div>
           <div className="middleBox">
             <TextBlock strings={['test', 'bla']} />
+            {
+              this.state.question != null ?
+                <TextBlock strings={['Please paint a' + this.state.question]} />
+                :
+                <div></div>
+            }
             <div>
+              <br />
               <Timer ref={this.timerRef} max={TIMERSTART} timeUp={() => this.timeUp()} />
+            </div>
+            <div className="btnStart">
+              <button onClick={this.startGame}>Start game</button>
             </div>
           </div>
         </div>
         <div className="footer">
           <div className="footerBox">
             <Controls theCanvas={this.canvasRef} model={model} labels={labels} />
-            <button onClick={this.startGame}>Start game</button>
+            
           </div>
         </div>
       </div>
