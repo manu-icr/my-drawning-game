@@ -11,7 +11,7 @@ import { CreateRoundList } from './helpers.js';
 
 const model = tf.loadModel("./model/model.json");
 const labels = require("./labels.json");
-const TIMERSTART = 5;
+const TIMERSTART = 3;
 
 class Game extends React.Component {
   constructor(props) {
