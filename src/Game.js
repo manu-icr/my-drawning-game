@@ -1,6 +1,6 @@
 import React from 'react';
 import * as tf from "@tensorflow/tfjs";
-import { withRouter  } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import DrawingBoard from './DrawingBoard.js';
 import Controls from './Controls.js';
@@ -9,16 +9,16 @@ import Timer from './Timer.js';
 
 import { CreateRoundList } from './helpers.js';
 
-
 const model = tf.loadModel("./model/model.json");
 const labels = require("./labels.json");
-const TIMERSTART = 10;
+const TIMERSTART = 5;
 
 class Game extends React.Component {
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef();
     this.timerRef = React.createRef();
+    this.controlsRef = React.createRef();
     this.state = {
       round: 1,
       time: TIMERSTART,
@@ -57,6 +57,16 @@ class Game extends React.Component {
     this.timerRef.current.reset();
   };
 
+  callbackPrediction = (prediction) => {
+    console.log("prediction = " + prediction);
+    if (prediction.toUpperCase() === this.state.question) {
+      console.log("winner winner chicken dinner");
+      this.setState({
+        round : this.state.round + 1
+      })
+    }
+  }
+
   render() {
     return (
       <div className="content">
@@ -65,7 +75,7 @@ class Game extends React.Component {
         </div>
         <div className="middle">
           <div className="middleBox">
-            <DrawingBoard ref={this.canvasRef} />
+            <DrawingBoard ref={this.canvasRef} makePrediction={() => this.controlsRef.current.makePrediction()} />
           </div>
           <div className="middleBox">
             <TextBlock strings={['test', 'bla']} />
@@ -86,8 +96,7 @@ class Game extends React.Component {
         </div>
         <div className="footer">
           <div className="footerBox">
-            <Controls theCanvas={this.canvasRef} model={model} labels={labels} />
-
+            <Controls ref={this.controlsRef} theCanvas={this.canvasRef} model={model} labels={labels} childNotifyPrediction={this.callbackPrediction} />
           </div>
         </div>
       </div>

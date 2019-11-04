@@ -6,7 +6,8 @@ const Controls = React.forwardRef((props, ref) => {
   let [prediction, setPrediction] = useState(""); // Sets default label to empty string.
 
   useEffect(() => {
-    console.log(prediction);
+    makePrediction();
+    console.log("effect " + prediction);
   });
 
   function resetCanvas() {
@@ -17,8 +18,25 @@ const Controls = React.forwardRef((props, ref) => {
 
   function makePrediction() {
     getPrediction(props.theCanvas, props.model).then(prediction =>
-      setPrediction(props.labels[prediction[0]]));
+      {
+        var _prediction = props.labels[prediction[0]];
+        setPrediction(_prediction);
+        props.childNotifyPrediction(_prediction);
+      });
   }
+
+  React.useImperativeHandle(ref, () => ({
+    makePrediction: () => {
+      makePrediction();
+    },
+    resetCanvas: () => {
+      resetCanvas();
+    },
+    getPrediction: () => {
+      return prediction;
+    }
+  
+  }));
 
   return (
     <div>

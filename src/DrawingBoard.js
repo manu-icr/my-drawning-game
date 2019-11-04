@@ -24,6 +24,7 @@ const DrawingBoard = React.forwardRef((props, ref) => {
   const handleMouseup = () => {
     mouseDown = false;
     [lastX, lastY] = [undefined, undefined];
+    props.makePrediction();
   };
 
   const handleMousemove = e => {
