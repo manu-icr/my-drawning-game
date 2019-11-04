@@ -1,8 +1,14 @@
 import React from 'react';
 import TextBlock from './TextBlock.js';
 
-function Score(props)
-{
-  return <TextBlock strings={['Win/Lose']} />
+import text from './config/text.json';
+
+function Score(props) {
+  return (
+    <div>
+      <TextBlock strings={[text.score]} />
+    </div>
+
+  );
 }
 export default Score;

@@ -7,8 +7,7 @@ import NavButton from './NavButton.js';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 import './App.css';
@@ -16,10 +15,6 @@ import './App.css';
 
 
 class App extends React.Component {
-
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <div>
@@ -32,8 +27,9 @@ class App extends React.Component {
             <Route path="/game">
               <Game />
             </Route>
-            <Route path="score">
+            <Route path="/score">
               <Score />
+              <NavButton title='Return to home' goto='' />
             </Route>
           </Switch>
         </Router>

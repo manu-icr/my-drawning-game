@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
-import * as tf from "@tensorflow/tfjs";
+
 import App from './App.js';
 
 
