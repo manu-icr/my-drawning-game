@@ -9,31 +9,29 @@ const Controls = React.forwardRef((props, ref) => {
     console.log(prediction);
   });
 
-  function resetCanvas()
-  {
+  function resetCanvas() {
     const canvas = props.theCanvas.current;
     const ctx = canvas.getContext("2d");
     ctx.fillRect(0, 0, canvas.height, canvas.width);
   }
 
-  //React.useImperativeHandle(ref, () => ({
+  function makePrediction() {
+    getPrediction(props.theCanvas, props.model).then(prediction =>
+      setPrediction(props.labels[prediction[0]]));
+  }
 
   return (
     <div>
       <button
         onClick={() => {
           resetCanvas();
-        }}
-      >
+        }} >
         Clear the canvas.
       </button>
       <button
-        onClick={() =>
-          getPrediction(props.theCanvas, props.model).then(prediction =>
-            setPrediction(props.labels[prediction[0]])
-          )
-        }
-      >
+        onClick={() => {
+          makePrediction();
+        }} >
         Predict the drawing.
       </button>
     </div>

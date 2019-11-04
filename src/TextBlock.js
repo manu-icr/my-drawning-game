@@ -5,10 +5,10 @@ import Typed from 'typed.js';
 class TextBlock extends React.Component {
 
     componentDidMount() {
-        const { strings } = this.props;
+        const { strings, typeSpeed = 50 } = this.props;
         const options = {
             strings: strings,
-            typeSpeed: 50,
+            typeSpeed: typeSpeed,
             backSpeed: 50,
             showCursor: true,
             onComplete: (self) => {

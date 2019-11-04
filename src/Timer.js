@@ -10,7 +10,6 @@ const Timer = React.forwardRef((props, ref) => {
   const [isActive, setIsActive] = useState(false);
 
   function tick() {
-    //console.log('tick');
     if (count < 1) {
       props.timeUp();
     }
@@ -24,11 +23,9 @@ const Timer = React.forwardRef((props, ref) => {
 
   React.useImperativeHandle(ref, () => ({
     start: () => {
-      //console.log('inside Timer start()');
       setIsActive(true);
     },
     reset: () => {
-      //console.log('inside Timer start()');
       setIsActive(false);
       setCount(props.max);
     },
