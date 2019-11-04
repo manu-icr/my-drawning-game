@@ -6,13 +6,12 @@ import * as tf from "@tensorflow/tfjs";
 import App from './App.js';
 
 
-const model = tf.loadModel("./model/model.json");
-const labels = require("./labels.json");
+
 
 
 ReactDOM.render(
   <div>
-    <App model={model} labels={labels} />
+    <App />
   </div>,
   document.getElementById("root")
 );
