@@ -1,4 +1,6 @@
 {
   "welcome": "Hi there. Good luck and have fun!",
-  "score" : "That was fun, right?"
+  "score" : "That was fun, right?",
+  "timer" : "You have [seconds] seconds left"
+
 }
