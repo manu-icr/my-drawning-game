@@ -7,6 +7,7 @@ import Controls from './Controls.js';
 import TextBlock from './TextBlock.js';
 import Timer from './Timer.js';
 
+import { GameConsumer } from './GameContext'
 import { CreateRoundList } from './helpers.js';
 
 const model = tf.loadModel("./model/model.json");
@@ -62,7 +63,7 @@ class Game extends React.Component {
     if (prediction.toUpperCase() === this.state.question) {
       console.log("winner winner chicken dinner");
       this.setState({
-        round : this.state.round + 1
+        round: this.state.round + 1
       })
     }
   }
@@ -70,9 +71,16 @@ class Game extends React.Component {
   render() {
     return (
       <div className="content">
-        <div className="header">
-          <h1>Round #{this.state.round.toString().padStart(2, '0')}</h1>
-        </div>
+        <GameConsumer>
+          {props => {
+            return (
+              <div className="header">
+                <h1>Round #{this.state.round.toString().padStart(2, '0')}</h1>
+                <h2>Points ={props.currentPoints}</h2>
+              </div>
+            )
+          }}
+        </GameConsumer>
         <div className="middle">
           <div className="middleBox">
             <DrawingBoard ref={this.canvasRef} makePrediction={() => this.controlsRef.current.makePrediction()} />

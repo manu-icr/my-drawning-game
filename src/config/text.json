@@ -1,5 +1,6 @@
 {
   "welcome": "Hi there. Good luck and have fun!",
+  "highScore": "The last highScore was [score]",
   "score" : "That was fun, right?",
   "timer" : "You have [seconds] seconds left"
 
