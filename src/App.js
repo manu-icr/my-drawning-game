@@ -3,6 +3,7 @@ import Start from './Start.js';
 import Score from './Score.js';
 import Game from './Game.js';
 import NavButton from './NavButton.js';
+import history from './history'
 
 import { GameProvider } from './GameContext'
 
@@ -15,24 +16,28 @@ import {
 
 import './App.css';
 
-const gameReducer = (state, action) => {
-  switch (action) {
-    case 'WIN':
-      return state + 1
-    case 'LOSE':
-      return state - 1
-    default:
-      throw new Error()
-  }
-}
-
-const points = {highScore: 42, currentPoints: 0};
+const points = {
+  highScore: 42, 
+  currentPoints: 0
+};
 class App extends React.Component {
+  constructor(props)
+  {
+    super(props);
+    this.state = {
+      highScore: points.highScore, 
+      currentPoints: points.currentPoints,
+    }
+  }
+  updateGameContext = (key, val) => {
+    this.setState({[key]: val});
+ }
+
   render() {
     return (
       <div>
-        <GameProvider value={points}>
-          <Router>
+        <GameProvider value={{state: this.state, updateGameContext: this.updateGameContext}}>
+          <Router history={history}>
             <Switch>
               <Route exact path="/">
                 <Start />

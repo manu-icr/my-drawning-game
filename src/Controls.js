@@ -4,9 +4,10 @@ import { getPrediction } from "./helpers.js";
 //function Controls({ theCanvas, model, labels }) {
 const Controls = React.forwardRef((props, ref) => {
   let [prediction, setPrediction] = useState(""); // Sets default label to empty string.
-
+  
   useEffect(() => {
-    makePrediction();
+    //makePrediction();
+    // did not work obviously
     console.log("effect " + prediction);
   });
 

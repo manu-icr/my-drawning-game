@@ -1,6 +1,6 @@
 import React from 'react';
 import * as tf from "@tensorflow/tfjs";
-import { withRouter } from "react-router-dom";
+import history from './history'
 
 import DrawingBoard from './DrawingBoard.js';
 import Controls from './Controls.js';
@@ -12,7 +12,7 @@ import { CreateRoundList } from './helpers.js';
 
 const model = tf.loadModel("./model/model.json");
 const labels = require("./labels.json");
-const TIMERSTART = 3;
+const TIMERSTART = 10;
 
 class Game extends React.Component {
   constructor(props) {
@@ -23,7 +23,8 @@ class Game extends React.Component {
     this.state = {
       round: 1,
       time: TIMERSTART,
-      question: null
+      question: null,
+      currentPoints: 0
     };
     // save randomized label index in array for better gaming experience
     this.roundList = CreateRoundList(labels.length);
@@ -39,7 +40,7 @@ class Game extends React.Component {
     });
     if (this.state.round > labels.length) {
       // end game
-      this.props.history.push("/score");
+      history.push("/score");
     }
     else {
       // start next round
@@ -62,54 +63,63 @@ class Game extends React.Component {
     console.log("prediction = " + prediction);
     if (prediction.toUpperCase() === this.state.question) {
       console.log("winner winner chicken dinner");
+      let points = this.state.currentPoints + 3;
+      this.props.context.updateGameContext('currentPoints', points);
       this.setState({
-        round: this.state.round + 1
+        round: this.state.round + 1,
+        currentPoints: points
       })
     }
   }
 
+
   render() {
     return (
-      <div className="content">
-        <GameConsumer>
-          {props => {
-            return (
-              <div className="header">
-                <h1>Round #{this.state.round.toString().padStart(2, '0')}</h1>
-                <h2>Points ={props.currentPoints}</h2>
+      <React.Fragment>
+        <div className="content">
+          <div className="header">
+            <h1>Round #{this.state.round.toString().padStart(2, '0')}</h1>
+            <h2>Points = {this.state.currentPoints}</h2>
+          </div>
+          <div className="middle">
+            <div className="middleBox">
+              <DrawingBoard ref={this.canvasRef} makePrediction={() => this.controlsRef.current.makePrediction()} />
+            </div>
+            <div className="middleBox">
+              <TextBlock strings={['test', 'bla']} />
+              {
+                this.state.question != null ?
+                  <TextBlock typeSpeed={10} strings={['Please paint a ' + this.state.question]} />
+                  :
+                  <div></div>
+              }
+              <div>
+                <br />
+                <Timer ref={this.timerRef} max={TIMERSTART} timeUp={() => this.timeUp()} />
               </div>
-            )
-          }}
-        </GameConsumer>
-        <div className="middle">
-          <div className="middleBox">
-            <DrawingBoard ref={this.canvasRef} makePrediction={() => this.controlsRef.current.makePrediction()} />
-          </div>
-          <div className="middleBox">
-            <TextBlock strings={['test', 'bla']} />
-            {
-              this.state.question != null ?
-                <TextBlock typeSpeed={10} strings={['Please paint a ' + this.state.question]} />
-                :
-                <div></div>
-            }
-            <div>
-              <br />
-              <Timer ref={this.timerRef} max={TIMERSTART} timeUp={() => this.timeUp()} />
+              <div className="btnStart">
+                <button onClick={this.startRound}>Start game</button>
+              </div>
             </div>
-            <div className="btnStart">
-              <button onClick={this.startRound}>Start game</button>
+          </div>
+          <div className="footer">
+            <div className="footerBox">
+              <Controls ref={this.controlsRef} theCanvas={this.canvasRef} model={model} labels={labels} childNotifyPrediction={this.callbackPrediction} />
             </div>
           </div>
         </div>
-        <div className="footer">
-          <div className="footerBox">
-            <Controls ref={this.controlsRef} theCanvas={this.canvasRef} model={model} labels={labels} childNotifyPrediction={this.callbackPrediction} />
-          </div>
-        </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
 
-export default withRouter(Game);
+
+const withContext = (Component) => {
+  return (props) => (
+      <GameConsumer>
+           {value =>  (<Component {...props} context={value} />)}
+      </GameConsumer>
+  )
+}
+
+export default withContext(Game);

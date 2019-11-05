@@ -1,20 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import TextBlock from './TextBlock.js';
 
-import { GameConsumer } from './GameContext'
+import GameContext from './GameContext'
 
 import text from './config/text.json';
 
 function Start(props) {
+  const game = useContext(GameContext)
+  console.log(game);
   return (
-    <GameConsumer>
-      {props => { return (
-        <div>
-          <TextBlock strings={[text.welcome]} />
-          <TextBlock strings={[text.highScore.replace("[score]", props.highScore)]} />
-        </div>
-      )}}
-    </GameConsumer>
+    <div>
+      <TextBlock strings={[text.welcome]} />
+      <TextBlock strings={[text.highScore.replace("[score]", game.state.highScore)]} />
+    </div>
   );
 }
 export default Start;
