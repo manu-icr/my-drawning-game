@@ -3,5 +3,6 @@
   "highScore": "The last highScore was [score]",
   "score" : "That was fun, right?",
   "timer" : "You have [seconds] seconds left",
-  "gameDescription": "You have a limited amout of time to draw. Start the game with the button below."
+  "gameDescription": "You have a limited amout of time to draw. Start the game with the button below.",
+  "question": "Please draw a [question]"
 }

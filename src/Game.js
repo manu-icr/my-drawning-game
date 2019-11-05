@@ -13,7 +13,7 @@ import { CreateRoundList } from './helpers.js';
 
 const model = tf.loadModel("./model/model.json");
 const labels = require("./labels.json");
-const TIMERSTART = 1;
+const TIMERSTART = 5;
 
 class Game extends React.Component {
   constructor(props) {
@@ -65,11 +65,11 @@ class Game extends React.Component {
     if (prediction.toUpperCase() === this.state.question) {
       console.log("winner winner chicken dinner");
       let points = this.state.currentPoints + 3;
-      this.props.context.updateGameContext('currentPoints', points);
+      this.props.reducerCallback('win',3)
       this.setState({
-        round: this.state.round + 1,
         currentPoints: points
-      })
+      });
+      this.timeUp();
     }
   }
 
@@ -90,7 +90,7 @@ class Game extends React.Component {
               <TextBlock strings={[text.gameDescription]} />
               {
                 this.state.question != null ?
-                  <TextBlock typeSpeed={10} strings={['Please paint a ' + this.state.question]} />
+                  <TextBlock typeSpeed={10} strings={[text.question.replace("[question]",this.state.question)]} />
                   :
                   <div></div>
               }

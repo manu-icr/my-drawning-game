@@ -21,11 +21,8 @@ const Controls = React.forwardRef((props, ref) => {
     getPrediction(props.theCanvas, props.model).then(newPrediction =>
       {
         var _prediction = props.labels[newPrediction[0]];
-        if(_prediction !== prediction)
-        {
-          setPrediction(_prediction);
-          props.childNotifyPrediction(_prediction);
-        }
+        setPrediction(_prediction);
+        props.childNotifyPrediction(_prediction);
       });
   }
 

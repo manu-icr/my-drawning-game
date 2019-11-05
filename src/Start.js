@@ -11,7 +11,7 @@ function Start(props) {
   return (
     <div>
       <TextBlock strings={[text.welcome]} />
-      <TextBlock strings={[text.highScore.replace("[score]", game.state.highScore)]} />
+      <TextBlock strings={[text.highScore.replace("[score]", game.highScore)]} />
     </div>
   );
 }
