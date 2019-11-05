@@ -6,6 +6,7 @@ import DrawingBoard from './DrawingBoard.js';
 import Controls from './Controls.js';
 import TextBlock from './TextBlock.js';
 import Timer from './Timer.js';
+import text from './config/text.json';
 
 import { GameConsumer } from './GameContext'
 import { CreateRoundList } from './helpers.js';
@@ -86,7 +87,7 @@ class Game extends React.Component {
               <DrawingBoard ref={this.canvasRef} makePrediction={() => this.controlsRef.current.makePrediction()} />
             </div>
             <div className="middleBox">
-              <TextBlock strings={['test', 'bla']} />
+              <TextBlock strings={[text.gameDescription]} />
               {
                 this.state.question != null ?
                   <TextBlock typeSpeed={10} strings={['Please paint a ' + this.state.question]} />
