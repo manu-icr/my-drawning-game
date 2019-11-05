@@ -3,7 +3,6 @@ import Start from './Start.js';
 import Score from './Score.js';
 import Game from './Game.js';
 import NavButton from './NavButton.js';
-import history from './history'
 
 import { GameProvider } from './GameContext'
 
@@ -37,7 +36,7 @@ class App extends React.Component {
     return (
       <div>
         <GameProvider value={{state: this.state, updateGameContext: this.updateGameContext}}>
-          <Router history={history}>
+          <Router >
             <Switch>
               <Route exact path="/">
                 <Start />

@@ -1,6 +1,6 @@
 import React from 'react';
 import * as tf from "@tensorflow/tfjs";
-import history from './history'
+import { withRouter } from 'react-router-dom';
 
 import DrawingBoard from './DrawingBoard.js';
 import Controls from './Controls.js';
@@ -12,7 +12,7 @@ import { CreateRoundList } from './helpers.js';
 
 const model = tf.loadModel("./model/model.json");
 const labels = require("./labels.json");
-const TIMERSTART = 10;
+const TIMERSTART = 1;
 
 class Game extends React.Component {
   constructor(props) {
@@ -40,7 +40,7 @@ class Game extends React.Component {
     });
     if (this.state.round > labels.length) {
       // end game
-      history.push("/score");
+      this.props.history.push("/score");
     }
     else {
       // start next round
@@ -122,4 +122,4 @@ const withContext = (Component) => {
   )
 }
 
-export default withContext(Game);
+export default withContext(withRouter(Game));
