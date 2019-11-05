@@ -18,11 +18,14 @@ const Controls = React.forwardRef((props, ref) => {
   }
 
   function makePrediction() {
-    getPrediction(props.theCanvas, props.model).then(prediction =>
+    getPrediction(props.theCanvas, props.model).then(newPrediction =>
       {
-        var _prediction = props.labels[prediction[0]];
-        setPrediction(_prediction);
-        props.childNotifyPrediction(_prediction);
+        var _prediction = props.labels[newPrediction[0]];
+        if(_prediction !== prediction)
+        {
+          setPrediction(_prediction);
+          props.childNotifyPrediction(_prediction);
+        }
       });
   }
 

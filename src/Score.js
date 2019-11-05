@@ -1,27 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import TextBlock from './TextBlock.js';
 
-import { GameConsumer } from './GameContext'
+import GameContext from './GameContext'
 import text from './config/text.json';
 
 function Score(props) {
+  const game = useContext(GameContext)
   return (
     <div>
       <TextBlock strings={[text.score]} />
-      <GameConsumer>
-        {props => {
-          return props.highScore > props.currentPoints ? (
-            <div><TextBlock strings={["You gained " + props.currentPoints + " points."]} /></div>
-          ) : (
+      {
+        game.state.highScore > game.state.currentPoints ? (
+          <div><TextBlock strings={["You gained " + game.state.currentPoints + " points."]} /></div>
+        ) : (
             <div>
-              <TextBlock strings={["Set a new highscore:  " + props.currentPoints]} />
+              <TextBlock strings={["Set a new highscore:  " + game.state.currentPoints]} />
               <TextBlock strings={["Congratulation! You rock!"]} />
             </div>
-            )
-        }}
-      </GameConsumer>
+          )}
     </div>
-
   );
 }
 export default Score;
