@@ -34,6 +34,9 @@ const Timer = React.forwardRef((props, ref) => {
     },
     toggle: () => {
       setIsActive(!isActive);
+    },
+    getRemaining: () => {
+      return count;
     }
   }));
 

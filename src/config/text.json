@@ -1,6 +1,6 @@
 {
   "welcome": "Hi there. Good luck and have fun!",
-  "highScore": "The last highScore was [score]",
+  "highScore": "The last highscore was [score]",
   "score" : "That was fun, right?",
   "timer" : "You have [seconds] seconds left",
   "gameDescription": "You have a limited amout of time to draw. Start the game with the button below.",

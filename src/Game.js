@@ -13,7 +13,7 @@ import { CreateRoundList } from './helpers.js';
 
 const model = tf.loadModel("./model/model.json");
 const labels = require("./labels.json");
-const TIMERSTART = 5;
+const TIMERSTART = 20;
 
 class Game extends React.Component {
   constructor(props) {
@@ -24,14 +24,21 @@ class Game extends React.Component {
     this.state = {
       round: 1,
       time: TIMERSTART,
-      question: null,
-      currentPoints: 0
+      question: null
     };
     // save randomized label index in array for better gaming experience
     this.roundList = CreateRoundList(labels.length);
+    this.props.resetPointsCallback();
   }
 
-  timeUp() {
+  timeUp(correctAnswer) {
+    if (correctAnswer) {
+      let timeLeft = this.timerRef.current.getRemaining();
+      this.props.changePointsCallback(timeLeft);
+    }
+    else {
+      this.props.timeUpCallback();
+    }
     this.setState({
       question: null
     });
@@ -64,12 +71,7 @@ class Game extends React.Component {
     console.log("prediction = " + prediction);
     if (prediction.toUpperCase() === this.state.question) {
       console.log("winner winner chicken dinner");
-      let points = this.state.currentPoints + 3;
-      this.props.reducerCallback('win',3)
-      this.setState({
-        currentPoints: points
-      });
-      this.timeUp();
+      this.timeUp(true);
     }
   }
 
@@ -80,7 +82,7 @@ class Game extends React.Component {
         <div className="content">
           <div className="header">
             <h1>Round #{this.state.round.toString().padStart(2, '0')}</h1>
-            <h2>Points = {this.state.currentPoints}</h2>
+            <h2>Points = {this.props.points}</h2>
           </div>
           <div className="middle">
             <div className="middleBox">
@@ -90,7 +92,7 @@ class Game extends React.Component {
               <TextBlock strings={[text.gameDescription]} />
               {
                 this.state.question != null ?
-                  <TextBlock typeSpeed={10} strings={[text.question.replace("[question]",this.state.question)]} />
+                  <TextBlock typeSpeed={10} strings={[text.question.replace("[question]", this.state.question)]} />
                   :
                   <div></div>
               }
@@ -117,9 +119,9 @@ class Game extends React.Component {
 
 const withContext = (Component) => {
   return (props) => (
-      <GameConsumer>
-           {value =>  (<Component {...props} context={value} />)}
-      </GameConsumer>
+    <GameConsumer>
+      {value => (<Component {...props} context={value} />)}
+    </GameConsumer>
   )
 }
 

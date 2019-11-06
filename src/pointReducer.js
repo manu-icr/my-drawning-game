@@ -1,18 +1,16 @@
 
 export default function pointReducer(state, action) {
-  
-  console.log("reducer called with [state,action] ");
-  console.log(state);
-  console.log(action);
+
   switch (action.type) {
     case 'win':
-      return { points: state.points + action.timeLeft };
+      let newPoints = state.points + action.timeLeft;
+      return { points: newPoints, highScore: (state.highScore < newPoints) ? newPoints : state.highScore };
     case 'lose':
-      return { points: state.points - 3 };
-    case 'highscore':
-      return { points: 0, highScore: state.points };
-      default:
-        throw new Error();
-      }
+      return { points: state.points - 3, highScore: state.highScore };
+    case 'reset':
+      return { points: 0, highScore: state.highScore };
+    default:
+      throw new Error();
+  }
 }
 
