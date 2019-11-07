@@ -13,7 +13,7 @@ import { CreateRoundList } from './helpers.js';
 
 const model = tf.loadModel("./model/model.json");
 const labels = require("./labels.json");
-const TIMERSTART = 20;
+const TIMERSTART = 2;
 
 class Game extends React.Component {
   constructor(props) {
@@ -55,7 +55,10 @@ class Game extends React.Component {
       this.startRound();
     }
   }
-  startRound = () => {
+  startRound = (e) => {
+    if(!!e) {
+      e.currentTarget.remove();
+    }
     this.timerRef.current.start();
     // set question to the next value in round list
     this.setState({
@@ -101,7 +104,7 @@ class Game extends React.Component {
                 <Timer ref={this.timerRef} max={TIMERSTART} timeUp={() => this.timeUp()} />
               </div>
               <div className="btnStart">
-                <button onClick={this.startRound}>{text.startButton}</button>
+                <button onClick={(e) => this.startRound(e)}>{text.startButton}</button>
               </div>
             </div>
           </div>
