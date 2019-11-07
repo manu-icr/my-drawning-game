@@ -5,10 +5,6 @@ import * as serviceWorker from "./serviceWorker";
 
 import App from './App.js';
 
-
-
-
-
 ReactDOM.render(
   <div>
     <App />

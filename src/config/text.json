@@ -1,8 +1,13 @@
 {
   "welcome": "Hi there. Good luck and have fun!",
+  "score": "That was fun, right?",
+  "scorePoints": "You gained [points] points.",
   "highScore": "The last highscore was [score]",
-  "score" : "That was fun, right?",
-  "timer" : "You have [seconds] seconds left",
+  "highScore2":"You've set a new highscore:  ",
+  "highScore3":"Congratulation! You rock!",
+  "timer": "You have [seconds] seconds left",
   "gameDescription": "You have a limited amout of time to draw. Start the game with the button below.",
-  "question": "Please draw a [question]"
+  "question": "Please draw a [question]",
+  "startButton": "Start game",
+  "resetCanvas": "Reset canvas"
 }

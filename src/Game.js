@@ -101,7 +101,7 @@ class Game extends React.Component {
                 <Timer ref={this.timerRef} max={TIMERSTART} timeUp={() => this.timeUp()} />
               </div>
               <div className="btnStart">
-                <button onClick={this.startRound}>Start game</button>
+                <button onClick={this.startRound}>{text.startButton}</button>
               </div>
             </div>
           </div>

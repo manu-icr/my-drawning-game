@@ -18,27 +18,27 @@ import './App.css';
 
 const App = () => {
   const [state, dispatch] = useReducer(pointReducer, { points: 0, highScore: 0 });
-  
+
   const changePoints = useCallback((timeLeft) => {
-    dispatch({type: 'win', timeLeft: timeLeft });
+    dispatch({ type: 'win', timeLeft: timeLeft });
     console.log("win");
     console.log(state);
   }, [state]);
-  
+
   const timeUp = useCallback(() => {
-    dispatch({type: 'lose'});
+    dispatch({ type: 'lose' });
     console.log("lose");
     console.log(state);
   }, [state]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const resetPoints = useCallback(() => {
     console.log("reset");
-    dispatch({type: 'reset'});
+    dispatch({ type: 'reset' });
   });
 
   return (
     <div>
-      <GameProvider value={{ points: state.points, highScore: state.highScore}}>
+      <GameProvider value={{ points: state.points, highScore: state.highScore }}>
         <Router >
           <Switch>
             <Route exact path="/">
@@ -46,7 +46,7 @@ const App = () => {
               <NavButton title='Start' goto='game' />
             </Route>
             <Route path="/game">
-              <Game changePointsCallback={changePoints} timeUpCallback={timeUp} resetPointsCallback={resetPoints} points={state.points}  />
+              <Game changePointsCallback={changePoints} timeUpCallback={timeUp} resetPointsCallback={resetPoints} points={state.points} />
             </Route>
             <Route path="/score">
               <Score />

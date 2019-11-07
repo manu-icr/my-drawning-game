@@ -53,14 +53,12 @@ const Timer = React.forwardRef((props, ref) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isActive, count]);
 
-  if (isActive)
-  {
-    return (<div>{ text.timer.replace('[seconds]', count.toString().padStart(props.max.length, '0')) }</div>);
+  if (isActive) {
+    return (<div>{text.timer.replace('[seconds]', count.toString().padStart(props.max.length, '0'))}</div>);
   }
-  else
-  {
+  else {
     return (<div></div>);
   }
-  
+
 });
 export default Timer;

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { getPrediction } from "./helpers.js";
 
+const text = require("./config/text.json");
+
 //function Controls({ theCanvas, model, labels }) {
 const Controls = React.forwardRef((props, ref) => {
   let [prediction, setPrediction] = useState(""); // Sets default label to empty string.
-  
+
   useEffect(() => {
     //makePrediction();
     // did not work obviously
@@ -18,12 +20,11 @@ const Controls = React.forwardRef((props, ref) => {
   }
 
   function makePrediction() {
-    getPrediction(props.theCanvas, props.model).then(newPrediction =>
-      {
-        var _prediction = props.labels[newPrediction[0]];
-        setPrediction(_prediction);
-        props.childNotifyPrediction(_prediction);
-      });
+    getPrediction(props.theCanvas, props.model).then(newPrediction => {
+      var _prediction = props.labels[newPrediction[0]];
+      setPrediction(_prediction);
+      props.childNotifyPrediction(_prediction);
+    });
   }
 
   React.useImperativeHandle(ref, () => ({
@@ -36,7 +37,7 @@ const Controls = React.forwardRef((props, ref) => {
     getPrediction: () => {
       return prediction;
     }
-  
+
   }));
 
   return (
@@ -45,13 +46,7 @@ const Controls = React.forwardRef((props, ref) => {
         onClick={() => {
           resetCanvas();
         }} >
-        Clear the canvas.
-      </button>
-      <button
-        onClick={() => {
-          makePrediction();
-        }} >
-        Predict the drawing.
+        {text.resetCanvas}
       </button>
     </div>
   );
