@@ -1,11 +1,11 @@
-import React, { useReducer, useCallback } from 'react';
+import React, { useContext, useReducer, useCallback } from 'react';
 import Start from './Start.js';
 import Score from './Score.js';
 import Game from './Game.js';
 import NavButton from './NavButton.js';
 import pointReducer from './pointReducer.js';
 
-import { GameProvider } from './GameContext'
+import GameContext, { GameProvider } from './GameContext'
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,28 +17,30 @@ import './App.css';
 
 
 const App = () => {
-  const [state, dispatch] = useReducer(pointReducer, { points: 0, highScore: 0 });
+  const [state, dispatch] = useReducer(pointReducer, { points: 0});
+  const game = useContext(GameContext)
 
+  
   const changePoints = useCallback((timeLeft) => {
     dispatch({ type: 'win', timeLeft: timeLeft });
-    console.log("win");
-    console.log(state);
+    console.log("highscore = " + game.highScore)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
-
   const timeUp = useCallback(() => {
     dispatch({ type: 'lose' });
-    console.log("lose");
-    console.log(state);
+    console.log("highscore = " + game.highScore)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const resetPoints = useCallback(() => {
-    console.log("reset");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     dispatch({ type: 'reset' });
+    console.log("highscore = " + game.highScore)
   });
 
   return (
     <div>
-      <GameProvider value={{ points: state.points, highScore: state.highScore }}>
+      <GameProvider value={{ points: state.points, highScore: game.highScore }}>
         <Router >
           <Switch>
             <Route exact path="/">

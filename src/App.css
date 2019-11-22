@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Leckerli+One');
 
+body {
+  margin: 20px;
+}
+
 .App {
   text-align: center;
 }

@@ -8,12 +8,12 @@ import TextBlock from './TextBlock.js';
 import Timer from './Timer.js';
 import text from './config/text.json';
 
-import { GameConsumer } from './GameContext'
 import { CreateRoundList } from './helpers.js';
 
 const model = tf.loadModel("./model/model.json");
 const labels = require("./labels.json");
-const TIMERSTART = 20;
+const TIMERSTART = 10;
+
 
 class Game extends React.Component {
   constructor(props) {
@@ -56,7 +56,7 @@ class Game extends React.Component {
     }
   }
   startRound = (e) => {
-    if(!!e) {
+    if (!!e) {
       e.currentTarget.remove();
     }
     this.timerRef.current.start();
@@ -72,8 +72,8 @@ class Game extends React.Component {
 
   callbackPrediction = (prediction) => {
     console.log("prediction = " + prediction);
-    if (prediction.toUpperCase() === this.state.question) {
-      console.log("winner winner chicken dinner");
+    if (!!prediction && prediction.toUpperCase() === this.state.question) {
+      // console.log("winner winner chicken dinner");
       this.timeUp(true);
     }
   }
@@ -120,12 +120,5 @@ class Game extends React.Component {
 }
 
 
-const withContext = (Component) => {
-  return (props) => (
-    <GameConsumer>
-      {value => (<Component {...props} context={value} />)}
-    </GameConsumer>
-  )
-}
 
-export default withContext(withRouter(Game));
+export default withRouter(Game);

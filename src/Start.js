@@ -7,6 +7,7 @@ import text from './config/text.json';
 
 function Start(props) {
   const game = useContext(GameContext)
+  console.log("start game context");
   console.log(game);
   return (
     <div>

@@ -1,33 +1,37 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import TextBlock from './TextBlock.js';
 
-import GameContext from './GameContext'
+
 import text from './config/text.json';
+import { useHighScore } from './customHooks.js';
+
 
 function Score(props) {
-  const game = useContext(GameContext)
+  
+  const [values] = useHighScore();
 
-  useEffect(() => {
-    if (game.highScore < game.points) {
-      this.props.reducerCallback();
+  function ScoreDetail() {
+    if (values.isNewHighScore) {
+      console.log("isNewHighScore values");
+      console.log(values);
+      return (
+        <div>
+          <TextBlock strings={[text.highScore2 + values.highScore]} />
+          <TextBlock strings={[text.highScore3]} />
+        </div>
+      );
     }
-  });
-
-  console.log("points = " + game.points);
-  console.log("highScore = " + game.highScore);
-
+    else {
+      
+      console.log("score values");
+      console.log(values);
+      return (<div><TextBlock strings={[text.scorePoints.replace("[points]", values.points)]} /></div>);
+    }
+  }
   return (
     <div>
       <TextBlock strings={[text.score]} />
-      {
-        game.highScore > game.points ? (
-          <div><TextBlock strings={[text.scorePoints.replace("[points]",game.points)]} /></div>
-        ) : (
-            <div>
-              <TextBlock strings={[text.highScore2 + game.points]} />
-              <TextBlock strings={[text.highScore3]} />
-            </div>
-          )}
+      <ScoreDetail />
     </div>
   );
 }

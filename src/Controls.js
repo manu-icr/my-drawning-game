@@ -10,7 +10,7 @@ const Controls = React.forwardRef((props, ref) => {
   useEffect(() => {
     //makePrediction();
     // did not work obviously
-    console.log("effect " + prediction);
+    //console.log("effect " + prediction);
   });
 
   function resetCanvas() {
